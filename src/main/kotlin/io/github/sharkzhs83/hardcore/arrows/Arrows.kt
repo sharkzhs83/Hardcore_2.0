@@ -1,8 +1,6 @@
 package io.github.sharkzhs83.hardcore.arrows
 
-import net.kyori.adventure.text.Component
 import org.bukkit.ChatColor
-import org.bukkit.Material
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.LivingEntity
@@ -12,7 +10,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.entity.ProjectileLaunchEvent
-import org.bukkit.inventory.ItemStack
 
 class Arrows : Listener{
 
