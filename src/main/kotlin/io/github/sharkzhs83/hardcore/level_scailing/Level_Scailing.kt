@@ -55,8 +55,10 @@ class Level_Scailing : Listener{
             if(config?.get("Max Score") as Int >= 100) {
                 (event.entity as LivingEntity).getAttribute(Attribute.MAX_HEALTH)!!.baseValue *= (1 + (config.get("Max Score") as Int / 100) * 0.1)
                 (event.entity as LivingEntity).health *= (1 + (config.get("Max Score") as Int / 100) * 0.1)
-                (event.entity as LivingEntity).getAttribute(Attribute.ATTACK_DAMAGE)!!.baseValue *= (1 + (config.get("Max Score") as Int / 100) * 0.1)
-                (event.entity as LivingEntity).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue *= (1 + (config.get("Max Score") as Int / 100) * 0.05)
+                if(t != EntityType.GHAST ) {
+                    (event.entity as LivingEntity).getAttribute(Attribute.ATTACK_DAMAGE)!!.baseValue *= (1 + (config.get("Max Score") as Int / 100) * 0.1)
+                    (event.entity as LivingEntity).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue *= (1 + (config.get("Max Score") as Int / 100) * 0.05)
+                }
                 (event.entity as LivingEntity).getAttribute(Attribute.FOLLOW_RANGE)!!.baseValue *= (1 + (config.get("Max Score") as Int / 100) * 0.1)
             }
         }

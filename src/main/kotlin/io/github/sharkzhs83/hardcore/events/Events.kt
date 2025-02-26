@@ -1,6 +1,7 @@
 package io.github.sharkzhs83.hardcore.events
 
 import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.*
@@ -171,6 +172,9 @@ class Events : Listener {
 
     @EventHandler
     fun entityOnDamage(event: EntityDamageByEntityEvent) {
+
+        val config = Bukkit.getPluginManager().getPlugin("Hardcore")?.config
+
         if(event.entity.type == EntityType.PLAYER && event.damager.type == EntityType.SPIDER) {
             val player = event.entity as Player
             val entity = event.damager as LivingEntity
@@ -193,7 +197,6 @@ class Events : Listener {
                 val player = event.entity as Player
                 val inventory = player.inventory
                 val items = inventory.contents.filterNotNull()
-                val config = Bukkit.getPluginManager().getPlugin("Hardcore")?.config
 
                 if (items.isNotEmpty()) {
                     val randomItem = items.random()
@@ -225,6 +228,19 @@ class Events : Listener {
                 event.entity.world.spawnParticle(org.bukkit.Particle.ITEM_SLIME, event.entity.location, 10)
             }
         }
+        else if(event.entity.type == EntityType.PLAYER && event.damager.type == EntityType.ENDERMAN) {
+            if(event.finalDamage != 0.0) {
+                event.entity.teleport(Location(event.entity.world,event.entity.location.x, event.entity.location.y + 3.5, event.entity.location.z))
+            }
+        }
+        else if(event.entity.type == EntityType.PLAYER && event.damager.type == EntityType.ZOMBIFIED_PIGLIN) {
+            if(event.finalDamage != 0.0) {
+                (event.entity as Player).foodLevel -= 1
+            }
+        }
+        else if(event.entity.type == EntityType.GHAST && event.damager.type == EntityType.FIREBALL) {
+            event.isCancelled = true
+        }
         else if(event.entity.type == EntityType.PLAYER && event.damager.type == EntityType.TRIDENT) {
             event.damager.world.spawn(event.entity.location, LightningStrike::class.java)
         }
@@ -242,4 +258,6 @@ class Events : Listener {
             event.entity.remove()
         }
     }
+
+
 }
