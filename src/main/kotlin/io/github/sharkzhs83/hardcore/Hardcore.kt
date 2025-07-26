@@ -3,6 +3,9 @@ package io.github.sharkzhs83.hardcore
 import io.github.sharkzhs83.hardcore.arrows.Arrows
 import io.github.sharkzhs83.hardcore.events.Events
 import io.github.sharkzhs83.hardcore.level_scailing.Level_Scailing
+import io.github.sharkzhs83.hardcore.player_level.PlayerLevelScaling
+import io.github.sharkzhs83.hardcore.player_level.PlayerStatsCommand
+import io.github.sharkzhs83.hardcore.player_level.StatItemListener
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -17,6 +20,11 @@ class Hardcore : JavaPlugin() , Listener{
         logger.info("HARDCORE has enabled")
         server.pluginManager.registerEvents(Events(), this)
         server.pluginManager.registerEvents(Level_Scailing(), this)
+        server.pluginManager.registerEvents(PlayerLevelScaling(this), this)
+        val statItemListener = StatItemListener(this)
+        server.pluginManager.registerEvents(statItemListener, this)
+        server.addRecipe(statItemListener.createRecipe())
+        getCommand("stats")?.setExecutor(PlayerStatsCommand(this))
         server.pluginManager.registerEvents(Arrows(), this)
         saveDefaultConfig()
 

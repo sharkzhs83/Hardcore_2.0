@@ -4,3 +4,7 @@ main: io.github.sharkzhs83.hardcore.Hardcore
 api-version: '1.21'
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:2.1.10
+commands:
+  stats:
+    description: View your current stats
+    usage: /<command>
