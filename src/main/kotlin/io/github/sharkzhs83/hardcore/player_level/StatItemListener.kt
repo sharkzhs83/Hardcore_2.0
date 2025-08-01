@@ -122,7 +122,7 @@ class StatItemListener(private val plugin: JavaPlugin) : Listener {
         }
         cfg.set("$base.points", cfg.getInt("$base.points") + spent)
         plugin.saveConfig()
-        PlayerLevelScaling.applyStats(player, plugin)
+        PlayerLevelScaling.applyStats(player, plugin.config)
         player.sendMessage(
             Component.text("스탯이 초기화되었습니다.").color(NamedTextColor.GOLD)
         )
@@ -195,7 +195,7 @@ class StatItemListener(private val plugin: JavaPlugin) : Listener {
         val statPath = "players.$uuid.$stat"
         cfg.set(statPath, cfg.getInt(statPath) + 1)
         plugin.saveConfig()
-        PlayerLevelScaling.applyStats(player, plugin)
+        PlayerLevelScaling.applyStats(player, plugin.config)
         player.sendMessage(
             Component.text("$display 스탯이 1 증가했습니다.")
                 .color(NamedTextColor.GREEN)

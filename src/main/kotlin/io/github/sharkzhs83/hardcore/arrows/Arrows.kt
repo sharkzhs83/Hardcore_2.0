@@ -30,7 +30,6 @@ class Arrows : Listener{
         tnt.yield = 2f
         tnt.fuseTicks = 0
         tnt.source = player
-        tnt.sourceEntity = player
     }
 
     @EventHandler

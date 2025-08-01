@@ -54,9 +54,9 @@ class Level_Scailing : Listener{
                 max <= 15 -> NamedTextColor.GOLD to "강한"
                 else -> NamedTextColor.RED to "매우 강한"
             }
-            val name = "${descriptor} ${koreanName(t)}"
+            val name = "$descriptor ${koreanName(t)}"
             (event.entity as LivingEntity).customName(Component.text(name).color(color))
-            (event.entity as LivingEntity).isCustomNameVisible = true
+            (event.entity as LivingEntity).isCustomNameVisible = false
         }
     }
 

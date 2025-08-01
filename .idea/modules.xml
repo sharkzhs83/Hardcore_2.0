@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Hardcore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Hardcore.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Hardcore_2.0.Hardcore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Hardcore_2.0.Hardcore.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.sharkzhs83.Hardcore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.sharkzhs83.Hardcore.main.iml" />
     </modules>
   </component>

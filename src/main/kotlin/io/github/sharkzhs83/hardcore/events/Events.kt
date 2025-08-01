@@ -3,6 +3,7 @@ package io.github.sharkzhs83.hardcore.events
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.block.data.type.TNT
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
@@ -24,10 +25,13 @@ class Events : Listener {
     //크리퍼
     @EventHandler
     fun onEntityExplode(event: EntityExplodeEvent) {
-        if(event.entity.type == EntityType.CREEPER) {
+
+        val entity = event.entity
+
+        if(entity.type == EntityType.CREEPER) {
             val tnt = event.entity.world.spawn(event.location, TNTPrimed::class.java)
         }
-        else if(event.entity.type == EntityType.TNT) {
+        else if(entity.type == EntityType.TNT && (entity as TNTPrimed).source is Player) {
             val creeper = event.entity.world.spawn(event.location, Creeper::class.java)
         }
     }

@@ -91,7 +91,7 @@ class PlayerLevelScaling(private val plugin: JavaPlugin) : Listener {
         val attacker: Player? = when (val damager = event.damager) {
             is Player -> damager
             is Projectile -> damager.shooter as? Player
-            is TNTPrimed -> damager.source as? Player ?: damager.sourceEntity as? Player
+            is TNTPrimed -> damager.source as? Player ?: damager.source as? Player
             else -> null
         }
         attacker ?: return
@@ -149,14 +149,14 @@ class PlayerLevelScaling(private val plugin: JavaPlugin) : Listener {
             val health = config.getInt("$base.health")
             val melee = config.getInt("$base.melee")
             val speed = config.getInt("$base.speed")
-            player.getAttribute(Attribute.GENERIC_MAX_HEALTH)?.let {
+            player.getAttribute(Attribute.MAX_HEALTH)?.let {
                 it.baseValue = 20.0 + health * 2
                 if (player.health > it.baseValue) player.health = it.baseValue
             }
-            player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE)?.let {
+            player.getAttribute(Attribute.ATTACK_DAMAGE)?.let {
                 it.baseValue = 1.0 + melee * 0.5
             }
-            player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)?.let {
+            player.getAttribute(Attribute.MOVEMENT_SPEED)?.let {
                 it.baseValue = 0.1 + speed * 0.005
             }
         }
