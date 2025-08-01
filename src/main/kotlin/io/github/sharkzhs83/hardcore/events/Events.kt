@@ -54,47 +54,48 @@ class Events : Listener {
     fun onSpawn(event: EntitySpawnEvent) {
         val config = Bukkit.getPluginManager().getPlugin("Hardcore")?.config
         val t = event.entity.type
+        val level = config?.getInt("Max Level") ?: 1
 
         if(t == EntityType.DROWNED) {
             (event.entity as LivingEntity).equipment!!.setItemInMainHand(ItemStack(Material.TRIDENT))
         }
         else if(t == EntityType.VINDICATOR) {
 
-            if(config?.get("Max Score") as Int in 500..749) {
+            if(level in 5..7) {
                 val axe = ItemStack(Material.DIAMOND_AXE)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(axe)
             }
-            else if(config.get("Max Score") as Int in 750..999) {
+            else if(level in 8..9) {
                 val axe = ItemStack(Material.DIAMOND_AXE)
                 axe.addEnchantment(Enchantment.SHARPNESS, 1)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(axe)
             }
-            else if(config.get("Max Score") as Int in 1000..1249) {
+            else if(level in 10..12) {
                 val axe = ItemStack(Material.DIAMOND_AXE)
                 axe.addEnchantment(Enchantment.SHARPNESS, 2)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(axe)
             }
-            else if(config.get("Max Score") as Int in 1250..1499) {
+            else if(level in 13..14) {
                 val axe = ItemStack(Material.NETHERITE_AXE)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(axe)
             }
-            else if(config.get("Max Score") as Int in 1500..1749) {
+            else if(level in 15..17) {
                 val axe = ItemStack(Material.NETHERITE_AXE)
                 axe.addEnchantment(Enchantment.SHARPNESS, 1)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(axe)
             }
-            else if(config.get("Max Score") as Int in 1750..2000) {
+            else if(level in 18..20) {
                 val axe = ItemStack(Material.NETHERITE_AXE)
                 axe.addEnchantment(Enchantment.SHARPNESS, 2)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(axe)
             }
-            else if(config.get("Max Score") as Int > 2000) {
+            else if(level > 20) {
                 val axe = ItemStack(Material.NETHERITE_AXE)
                 axe.addEnchantment(Enchantment.SHARPNESS, 3)
 
@@ -102,47 +103,47 @@ class Events : Listener {
             }
         }
         else if(t == EntityType.PILLAGER) {
-            if(config?.get("Max Score") as Int in 500..749) {
+            if(level in 5..7) {
                 val crossbow = ItemStack(Material.CROSSBOW)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(crossbow)
             }
-            else if(config.get("Max Score") as Int in 750..999) {
+            else if(level in 8..9) {
                 val crossbow = ItemStack(Material.CROSSBOW)
                 crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 1)
                 crossbow.addUnsafeEnchantment(Enchantment.MULTISHOT, 1)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(crossbow)
             }
-            else if(config.get("Max Score") as Int in 1000..1249) {
+            else if(level in 10..12) {
                 val crossbow = ItemStack(Material.CROSSBOW)
                 crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 2)
                 crossbow.addUnsafeEnchantment(Enchantment.MULTISHOT, 1)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(crossbow)
             }
-            else if(config.get("Max Score") as Int in 1250..1499) {
+            else if(level in 13..14) {
                 val crossbow = ItemStack(Material.CROSSBOW)
                 crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 3)
                 crossbow.addUnsafeEnchantment(Enchantment.MULTISHOT, 1)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(crossbow)
             }
-            else if(config.get("Max Score") as Int in 1500..1749) {
+            else if(level in 15..17) {
                 val crossbow = ItemStack(Material.CROSSBOW)
                 crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 4)
                 crossbow.addUnsafeEnchantment(Enchantment.MULTISHOT, 2)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(crossbow)
             }
-            else if(config.get("Max Score") as Int in 1750..2000) {
+            else if(level in 18..20) {
                 val crossbow = ItemStack(Material.CROSSBOW)
                 crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 5)
                 crossbow.addUnsafeEnchantment(Enchantment.MULTISHOT, 3)
 
                 (event.entity as LivingEntity).equipment!!.setItemInMainHand(crossbow)
             }
-            else if(config.get("Max Score") as Int > 2000) {
+            else if(level > 20) {
                 val crossbow = ItemStack(Material.CROSSBOW)
                 crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, 6)
                 crossbow.addUnsafeEnchantment(Enchantment.MULTISHOT, 4)
@@ -156,10 +157,16 @@ class Events : Listener {
     fun onLaunch(event: ProjectileLaunchEvent) {
         val shooter = event.entity.shooter
         val config = Bukkit.getPluginManager().getPlugin("Hardcore")?.config
+        val level = config?.getInt("Max Level") ?: 1
 
         if(event.entity.type == EntityType.ARROW && (shooter as LivingEntity).type == EntityType.SKELETON) {
             event.entity.fireTicks = 100
-            event.entity.velocity = Vector(event.entity.velocity.x * (1 + (config?.get("Max Score") as Int / 100) * 0.1), event.entity.velocity.y * (1 + (config.get("Max Score") as Int / 100) * 0.1), event.entity.velocity.z * (1 + (config.get("Max Score") as Int / 100) * 0.1))
+            val scale = 1 + (level - 1) * 0.1
+            event.entity.velocity = Vector(
+                event.entity.velocity.x * scale,
+                event.entity.velocity.y * scale,
+                event.entity.velocity.z * scale
+            )
         }
     }
 
@@ -249,12 +256,14 @@ class Events : Listener {
     @EventHandler
     fun projectileOnHit(event: ProjectileHitEvent) {
         val config = Bukkit.getPluginManager().getPlugin("Hardcore")?.config
+        val level = config?.getInt("Max Level") ?: 1
         if(event.entity.type == EntityType.POTION && (event.entity.shooter as Entity).type == EntityType.WITCH) {
             val range = 1..5
             event.entity.world.createExplosion(event.entity.location, range.random().toFloat())
         }
         else if(event.entity.type == EntityType.ARROW && (event.entity.shooter as Entity).type == EntityType.PILLAGER) {
-            event.entity.world.createExplosion(event.entity.location, (1 + (config?.get("Max Score") as Int / 100) * 0.02).toFloat())
+            val power = 1 + (level - 1) * 0.02
+            event.entity.world.createExplosion(event.entity.location, power.toFloat())
             event.entity.remove()
         }
     }

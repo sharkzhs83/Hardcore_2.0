@@ -24,6 +24,8 @@ class Hardcore : JavaPlugin() , Listener{
         val statItemListener = StatItemListener(this)
         server.pluginManager.registerEvents(statItemListener, this)
         server.addRecipe(statItemListener.createRecipe())
+        server.addRecipe(statItemListener.createResetRecipe())
+        server.addRecipe(statItemListener.createCapRecipe())
         getCommand("stats")?.setExecutor(PlayerStatsCommand(this))
         server.pluginManager.registerEvents(Arrows(), this)
         saveDefaultConfig()

@@ -1,6 +1,7 @@
 package io.github.sharkzhs83.hardcore.player_level
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -11,20 +12,25 @@ import org.bukkit.plugin.java.JavaPlugin
 class PlayerStatsCommand(private val plugin: JavaPlugin) : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) {
-            sender.sendMessage("플레이어만 사용할 수 있습니다.")
+            sender.sendMessage(
+                Component.text("플레이어만 사용할 수 있습니다.")
+                    .color(NamedTextColor.RED)
+            )
             return true
         }
         val uuid = sender.uniqueId.toString()
         val cfg = plugin.config
         if (command.name.equals("stats", true)) {
             val msg = Component.text(
-                "남은 포인트: ${cfg.getInt("players.$uuid.points")} " +
+                "레벨: ${cfg.getInt("players.$uuid.level")}/${cfg.getInt("players.$uuid.cap", 5)} " +
+                        "남은 포인트: ${cfg.getInt("players.$uuid.points")} " +
                         "체력: ${cfg.getInt("players.$uuid.health")} " +
                         "근접: ${cfg.getInt("players.$uuid.melee")} " +
                         "원거리: ${cfg.getInt("players.$uuid.ranged")} " +
                         "폭발: ${cfg.getInt("players.$uuid.explosive")} " +
                         "스피드: ${cfg.getInt("players.$uuid.speed")} " +
                         "방어력: ${cfg.getInt("players.$uuid.defense")}")
+                .color(NamedTextColor.GREEN)
             sender.sendMessage(msg)
             return true
         }
