@@ -6,6 +6,7 @@ import org.bukkit.Material
 import org.bukkit.block.data.type.TNT
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.*
+import io.github.sharkzhs83.hardcore.arrows.BOMB_ARROW_TAG
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
@@ -29,10 +30,13 @@ class Events : Listener {
         val entity = event.entity
 
         if(entity.type == EntityType.CREEPER) {
-            val tnt = event.entity.world.spawn(event.location, TNTPrimed::class.java)
+            event.entity.world.spawn(event.location, TNTPrimed::class.java)
         }
-        else if(entity.type == EntityType.TNT && (entity as TNTPrimed).source is Player) {
-            val creeper = event.entity.world.spawn(event.location, Creeper::class.java)
+        else if(entity.type == EntityType.TNT) {
+            val tnt = entity as TNTPrimed
+            if(tnt.source is Player && !tnt.scoreboardTags.contains(BOMB_ARROW_TAG)) {
+                event.entity.world.spawn(event.location, Creeper::class.java)
+            }
         }
     }
 

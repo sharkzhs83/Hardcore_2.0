@@ -2,6 +2,7 @@ package io.github.sharkzhs83.hardcore.player_level
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.attribute.Attribute
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Entity
@@ -29,15 +30,26 @@ class PlayerLevelScaling(private val plugin: JavaPlugin) : Listener {
     @EventHandler
     fun onMobKill(event: EntityDeathEvent) {
         val killer = event.entity.killer ?: return
-        val xp = xpFor(event.entity.type)
+        val xp = xpFor(event.entity)
         addXp(killer, xp)
     }
 
-    private fun xpFor(type: EntityType): Int = when (type) {
-        EntityType.ZOMBIE -> 10
-        EntityType.SKELETON -> 12
-        EntityType.CREEPER -> 15
-        else -> 5
+    private fun xpFor(entity: Entity): Int {
+        val base = when (entity.type) {
+            EntityType.ZOMBIE -> 10
+            EntityType.SKELETON -> 12
+            EntityType.CREEPER -> 15
+            else -> 5
+        }
+        val name = entity.customName()?.let { PlainTextComponentSerializer.plainText().serialize(it) } ?: return base
+        val multiplier = when {
+            name.startsWith("매우 강한") -> 2.0
+            name.startsWith("강한") -> 1.5
+            name.startsWith("보통") -> 1.0
+            name.startsWith("약한") -> 0.5
+            else -> 1.0
+        }
+        return (base * multiplier).toInt()
     }
 
     private fun addXp(player: Player, amount: Int) {
