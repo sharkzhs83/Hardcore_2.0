@@ -35,12 +35,9 @@ class PlayerLevelScaling(private val plugin: JavaPlugin) : Listener {
     }
 
     private fun xpFor(entity: Entity): Int {
-        val base = when (entity.type) {
-            EntityType.ZOMBIE -> 10
-            EntityType.SKELETON -> 12
-            EntityType.CREEPER -> 15
-            else -> 5
-        }
+
+        val base = 5
+
         val name = entity.customName()?.let { PlainTextComponentSerializer.plainText().serialize(it) } ?: return base
         val multiplier = when {
             name.startsWith("매우 강한") -> 2.0
