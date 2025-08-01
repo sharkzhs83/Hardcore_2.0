@@ -13,6 +13,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.entity.ProjectileLaunchEvent
 
+const val BOMB_ARROW_TAG = "bomb_arrow"
+
 class Arrows : Listener{
 
 
@@ -30,6 +32,7 @@ class Arrows : Listener{
         tnt.yield = 2f
         tnt.fuseTicks = 0
         tnt.source = player
+        tnt.addScoreboardTag(BOMB_ARROW_TAG)
     }
 
     @EventHandler
